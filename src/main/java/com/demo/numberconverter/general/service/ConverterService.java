@@ -1,4 +1,4 @@
-package com.demo.numberconverter.general.controller;
+package com.demo.numberconverter.general.service;
 
 import com.demo.numberconverter.general.entity.ConversionRequest;
 
