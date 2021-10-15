@@ -1,10 +1,15 @@
 package com.demo.numberconverter.general.controller;
 
 import com.demo.numberconverter.general.entity.ConversionRequest;
+import com.demo.numberconverter.general.entity.ConversionType;
+import com.demo.numberconverter.general.service.ConversionTypeProvider;
+import com.demo.numberconverter.general.service.ConverterFactory;
 import com.demo.numberconverter.general.service.ConverterService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,14 +19,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/numberconverter")
 public class ConverterController {
 
-    public static final String CONVERTER = "standardconverter";
-
     @Autowired
-    @Qualifier(CONVERTER)
-    ConverterService converterService;
+    ConverterFactory converterFactory;
+    @Autowired
+    ConversionTypeProvider conversionTypeProvider;
 
-    @PostMapping("/toRoman")
-    public ConversionRequest convertToRomanNumeral(@RequestBody @Valid ConversionRequest conversionRequest) {
-        return converterService.addRomanNumerals(conversionRequest);
+    @PostMapping("/convert")
+    public ConversionRequest convertToRomanNumeral(@RequestBody @Valid ConversionRequest conversionRequest)
+            throws JsonProcessingException {
+        ConverterService converterService = converterFactory.getConverter(conversionRequest.getConversionType());
+        return converterService.process(conversionRequest);
     }
+
+    @GetMapping("/getConversionTypes")
+    public Map<Integer, String> getConversionTypes() {
+        return conversionTypeProvider.getConversionTypes();
+    }
+
 }

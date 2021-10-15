@@ -1,18 +1,19 @@
-package com.demo.numberconverter.general.service;
+package com.demo.numberconverter.converters.binarytostdroman.service;
 
-import com.demo.numberconverter.general.entity.ValidBinary;
+import com.demo.numberconverter.converters.binarytostdroman.entity.ValidBinary;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import liquibase.util.StringUtil;
 
-public class BinaryValidator implements ConstraintValidator<ValidBinary, String> {
+public class BinaryValidator implements ConstraintValidator<ValidBinary, Object> {
 
     @Override
     public void initialize(ValidBinary constraintAnnotation) {
     }
 
     @Override
-    public boolean isValid(String value, ConstraintValidatorContext context) {
+    public boolean isValid(Object input, ConstraintValidatorContext context) {
+        String value = (String) input;
         if (StringUtil.isEmpty(value)) {
             return true;
         }
