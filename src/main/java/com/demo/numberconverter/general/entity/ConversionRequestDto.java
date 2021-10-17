@@ -8,12 +8,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
-public class ConversionRequest {
+public class ConversionRequestDto implements BaseDto {
 
     private long id;
-    private Timestamp requestDateTime;
+    private LocalDateTime requestDateTime;
     @JsonIgnore
     @ValidBinary(groups = ValidBinaryToStdRomanRequest.class)
     @ValidDecimal(groups = ValidDecimalToStdRomanRequest.class)
@@ -21,8 +21,21 @@ public class ConversionRequest {
     private Object output;
     private ConversionType conversionType;
     @JsonSerialize
-    @JsonProperty("input")
     private JsonNode inputAsNode;
+
+    @JsonProperty("input")
+    public void setInputAsNode(JsonNode inputAsNode) {
+        this.inputAsNode = inputAsNode;
+    }
+
+    @JsonProperty("input")
+    public Object getInput() {
+        return input;
+    }
+
+    public void setInput(Object input) {
+        this.input = input;
+    }
 
     public long getId() {
         return id;
@@ -32,20 +45,12 @@ public class ConversionRequest {
         this.id = id;
     }
 
-    public Timestamp getRequestDateTime() {
+    public LocalDateTime getRequestDateTime() {
         return requestDateTime;
     }
 
-    public void setRequestDateTime(Timestamp requestDateTime) {
+    public void setRequestDateTime(LocalDateTime requestDateTime) {
         this.requestDateTime = requestDateTime;
-    }
-
-    public Object getInput() {
-        return input;
-    }
-
-    public void setInput(Object input) {
-        this.input = input;
     }
 
     public Object getOutput() {
@@ -68,7 +73,4 @@ public class ConversionRequest {
         return inputAsNode;
     }
 
-    public void setInputAsNode(JsonNode inputAsNode) {
-        this.inputAsNode = inputAsNode;
-    }
 }

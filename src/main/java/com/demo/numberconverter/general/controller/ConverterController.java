@@ -1,7 +1,6 @@
 package com.demo.numberconverter.general.controller;
 
-import com.demo.numberconverter.general.entity.ConversionRequest;
-import com.demo.numberconverter.general.entity.ConversionType;
+import com.demo.numberconverter.general.entity.ConversionRequestDto;
 import com.demo.numberconverter.general.service.ConversionTypeProvider;
 import com.demo.numberconverter.general.service.ConverterFactory;
 import com.demo.numberconverter.general.service.ConverterService;
@@ -25,10 +24,10 @@ public class ConverterController {
     ConversionTypeProvider conversionTypeProvider;
 
     @PostMapping("/convert")
-    public ConversionRequest convertToRomanNumeral(@RequestBody @Valid ConversionRequest conversionRequest)
+    public ConversionRequestDto convertToRomanNumeral(@RequestBody @Valid ConversionRequestDto conversionRequestDto)
             throws JsonProcessingException {
-        ConverterService converterService = converterFactory.getConverter(conversionRequest.getConversionType());
-        return converterService.process(conversionRequest);
+        ConverterService converterService = converterFactory.getConverter(conversionRequestDto.getConversionType());
+        return converterService.process(conversionRequestDto);
     }
 
     @GetMapping("/getConversionTypes")

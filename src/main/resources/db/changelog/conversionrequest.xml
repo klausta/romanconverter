@@ -1,0 +1,25 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <property name="now" value="CURRENT_TIMESTAMP" dbms="db2,oracle,postgresql,h2"/>
+    <changeSet id="conversionrequest" author="KlausThorupAndersen">
+        <createTable tableName="TBCONVERSIONREQUEST" remarks="Logs conversionrequests">
+            <column defaultValueNumeric="0" name="ID" type="decimal(10, 0)" autoIncrement="true" remarks="id">
+                <constraints primaryKey="true"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="REQUEST_DATE_TIME" type="datetime" remarks="">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue=" " name="INPUT" type="varchar(50)" remarks="Input">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue=" " name="OUTPUT" type="varchar(50)" remarks="Output">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="CONVERSION_TYPE" type="decimal(10, 0)" remarks="">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
